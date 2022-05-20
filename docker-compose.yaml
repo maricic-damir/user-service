@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+  user-service:
+    image: localhost:5000/user-service:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 8001:8080
