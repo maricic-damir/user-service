@@ -23,7 +23,7 @@ public class UserMapper implements Mapper<User, UserDto> {
                 .email(entity.getEmail())
                 .id(entity.getId())
                 .password(entity.getPassword())
-                .receiveUpdate(entity.isReceiveUpdate())
+                .receiveUpdate(entity.getReceiveUpdate())
                 .build();
     }
 }

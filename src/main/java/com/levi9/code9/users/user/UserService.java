@@ -4,7 +4,6 @@ import com.levi9.code9.users.exception.AlreadyExistsException;
 import com.levi9.code9.users.exception.NotFoundException;
 import com.levi9.code9.users.messaging.MessageFactory;
 import com.levi9.code9.users.messaging.MessageService;
-import com.levi9.code9.users.messaging.NotificationType;
 import com.levi9.code9.users.messaging.UserUpdateMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -54,7 +53,7 @@ public class UserService {
                     .id(existingUser.getId())
                     .email(user.getEmail())
                     .password(user.getPassword())
-                    .receiveUpdate(user.isReceiveUpdate())
+                    .receiveUpdate(user.getReceiveUpdate())
                     .build();
             userRepository.save(updatedUser);
             publishMessageIfSubscribed(updatedUser, UserOperation.UPDATE);
@@ -72,7 +71,7 @@ public class UserService {
     }
 
     private void publishMessageIfSubscribed(User user, UserOperation operation) {
-        if(user.isReceiveUpdate()) {
+        if(Boolean.TRUE.equals(user.getReceiveUpdate())) {
             UserUpdateMessage userUpdateMessage = MessageFactory.createUserUpdateMessage(user, operation);
             messageService.sendMessageToUserTopic(userUpdateMessage);
         }

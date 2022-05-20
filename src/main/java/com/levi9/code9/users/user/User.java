@@ -27,5 +27,5 @@ public class User {
     private String password;
 
     @Column(name = "receive_update")
-    private boolean receiveUpdate;
+    private Boolean receiveUpdate;
 }
